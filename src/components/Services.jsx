@@ -310,7 +310,7 @@ const Services = () => {
             <div className="lg:flex flex-col hidden  justify-center "></div>
             <div className="flex flex-col  justify-center items-center">
               <h2 className="text-black text-[22px] sm:text-[26px] lg:text-[38px] font-bold">
-                Our Services
+                Our Servicess
               </h2>
             </div>
 
