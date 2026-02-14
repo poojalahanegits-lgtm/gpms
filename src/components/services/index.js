@@ -2,10 +2,38 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 /* ================= AXIOS CLIENT ================= */
-
 const apiClient = axios.create({
-  baseURL: "https://api.gpgs24.in/api",
+  baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:4000/api",
 });
+
+// const apiClient = axios.create({
+//   baseURL: "https://api.gpgs24.in/api",
+// });
+// const apiClient = axios.create({
+//   baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:4000/api",
+// });
+/* =========================================================
+   MAIN SERVICES (WITH IMAGE)
+========================================================= */
+
+const fetchMainServices = async () => {
+  const res = await apiClient.get("/services-data");
+
+  if (!res.data?.data) return [];
+
+  return res.data.data.map((item) => ({
+    title: item["Title"],
+    desc: item["Description"],
+    img: item["Image"],
+    sectionId: item["Section ID"],
+  }));
+};
+
+export const useMainServices = () =>
+  useQuery({
+    queryKey: ["main-services"],
+    queryFn: fetchMainServices,
+  });
 
 /* =========================================================
    GENERIC SERVICE FETCHER
